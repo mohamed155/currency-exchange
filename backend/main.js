@@ -39,9 +39,6 @@ app.get('/exchange/:firstCurrency/:secondCurrency', async (req, res) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(`https://www.google.com/finance/quote/${firstCurrency}-${secondCurrency}`);
-    // const element = await page.waitForSelector('html');
-    // const html = await page.evaluate(element => element.innerHTML, element);
-    // res.send(html);
     const element = await page.waitForSelector('.YMlKec.fxKbKc').catch(() => {
         res.status(400);
         res.json({error: 'invalid currency'});
